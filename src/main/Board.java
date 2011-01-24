@@ -46,7 +46,7 @@ public class Board {
 	public Board() throws FileNotFoundException {
 		fallingPieces = readIntegers(new File("data", "fallingPieces.txt"));
 		raisingPieces = readIntegers(new File("data", "raisingPieces.txt"));
-		chainScores	  = readIntegers(new File("data", "chainScores.txt"));
+		chainScores   = readIntegers(new File("data", "chainScores.txt"));
 		
 		levelUp();
 	}
