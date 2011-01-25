@@ -44,9 +44,9 @@ public class Board {
 	private boolean[][] hits = new boolean[7][7];
 	
 	public Board() throws FileNotFoundException {
-		fallingPieces = readIntegers(new File("data", "fallingPieces.txt"));
-		raisingPieces = readIntegers(new File("data", "raisingPieces.txt"));
-		chainScores   = readIntegers(new File("data", "chainScores.txt"));
+		if (fallingPieces == null) fallingPieces = readIntegers(new File("data", "fallingPieces.txt"));
+		if (raisingPieces == null) raisingPieces = readIntegers(new File("data", "raisingPieces.txt"));
+		if (chainScores   == null) chainScores   = readIntegers(new File("data", "chainScores.txt"));
 		
 		levelUp();
 	}
