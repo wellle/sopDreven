@@ -43,17 +43,20 @@ public class SequenceList {
 	public int getSize() { return sequences.size(); }
 	public Sequence getSequence(int index) { return sequences.get(index); }
 	
-	public void writeToFile(boolean printImprovements) throws IOException {
+	public boolean printImprovements(boolean printImprovements) {
 		if (maxImprovement == 0) {
 			conditionalPrint(printImprovements, ".");
-			return;
+			return false;
 		} else {
 			conditionalPrint(printImprovements, "\n" + getTime() + ": " + maxImprovement);
 			maxImprovement = 0;
+			return true;
 		}
+	}
 		
+	public void writeToFile(String fileName, boolean printImprovements) throws IOException {
 		File seqFile = File.createTempFile("sequences/", ".txt", new File("sequences"));
-		File curFile = new File("sequences", "current.txt");
+		File curFile = new File("sequences", fileName);
 		
 		BufferedWriter seqWriter = new BufferedWriter(new FileWriter(seqFile));
 		BufferedWriter curWriter = new BufferedWriter(new FileWriter(curFile));
@@ -86,8 +89,8 @@ public class SequenceList {
 		}
 	}
 	
-	public void readFromFile() throws IOException {
-		File file = new File("sequences", "current.txt");
+	public void readIndirect(String fileName) throws IOException {
+		File file = new File("sequences", fileName);
 		if (!file.exists()) {
 			file.createNewFile();
 			return;

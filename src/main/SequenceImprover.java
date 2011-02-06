@@ -7,11 +7,16 @@ public class SequenceImprover {
 	private static boolean printScoresOnRead = true;
 	private static boolean printImprovements = true;
 	
+	/**
+	 * @param args[0] read/write file
+	 * @param args[1..] read files
+	 */
 	public static void main(String[] args) throws IOException {
 		Random random = new Random();
 		Board board;
 		SequenceList sequenceList = new SequenceList();
-		sequenceList.readFromFile();
+		for (String fileName : args)
+			sequenceList.readIndirect(fileName);
 		
 		if (printScoresOnRead)
 			sequenceList.printScores();
@@ -30,7 +35,12 @@ public class SequenceImprover {
 					}
 				}
 			}
-			sequenceList.writeToFile(printImprovements);
+			if (sequenceList.printImprovements(printImprovements)) {
+				for (int i = 1; i < args.length; ++i)
+					sequenceList.readIndirect(args[i]);
+				
+				sequenceList.writeToFile(args[0], printImprovements);
+			}
 		}
 	}
 }
